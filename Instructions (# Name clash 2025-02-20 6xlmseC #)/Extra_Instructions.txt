@@ -1,0 +1,6 @@
+Please follow the instructions provided in the pdf document.
+
+For questions 3 and 4, please include your .ipynb (Jupyter) or .py files in which you have implemented the Furuta pendulum, the simulation, and the subsequent plots.
+Please compress your report and your Python files into a single file and submit this compressed file only.
+The name of the compressed file should be: LastName_Project1.xxx, where xxx is ZIP, TAR or TAR.GZ.
+
