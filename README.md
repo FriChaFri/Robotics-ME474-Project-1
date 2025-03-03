@@ -6,3 +6,6 @@ Packages from instructions: numpy, matplotlib, jupyter, mujoco, spatialmath-pyth
 I also added sympy so we can do symbolic math  
 
     pip install numpy, matplotlib, jupyter, mujoco, spatialmath-python, control, sympy
+    
+
+    
