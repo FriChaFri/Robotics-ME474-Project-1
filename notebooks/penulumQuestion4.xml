@@ -1,5 +1,5 @@
 <mujoco>
-<option gravity="0 0 -9.81" integrator = "RK4" />
+<option gravity="0 0 -9.804" integrator = "RK4" />
 
     <asset>
         <mesh name="camera_mesh" file="camera.stl" scale="0.01 0.01 0.01"/>
@@ -31,7 +31,7 @@
 	</worldbody>
 	
 		<actuator>
-         <motor name="joint1-actuator" joint="joint1" forcerange="-1005 1005"/>
+         <general name="joint1-actuator" joint="joint1" ctrllimited="false" forcelimited="false" gaintype="fixed" gainprm="15 0 0"/>
     </actuator>
 	<sensor>
 		<!-- Spatial velocities: expressed in the world frame -->
