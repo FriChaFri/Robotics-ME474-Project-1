@@ -28,15 +28,25 @@
 			</body>
 		</body>
 	</worldbody>
+	
 	<sensor>
-		<!-- body-->
+		<!-- Angular velocity sensors -->
 		<frameangvel name="body-ang-vel" objtype="site" objname="end-effector-sensor" reftype="body" refname="end-effector"/>
+		<frameangvel name="spatial-ang-vel" objtype="site" objname="end-effector-sensor" reftype="world" refname="world"/>
 		
-		<!--- spatial-->
-		<frameangvel name="spatial-ang-vel" objtype="site" objname="end-effector-sensor" reftype="body" refname="world"/>
+		<!-- Linear velocity sensors -->
+		<framelinvel name="body-linear-vel" objtype="site" objname="end-effector-sensor" reftype="body" refname="end-effector"/>
+		<framelinvel name="spatial-linear-vel" objtype="site" objname="end-effector-sensor" reftype="world" refname="world"/>
 
+		<!-- Joint sensors for additional verification -->
+		<jointpos name="joint1-position" joint="joint1"/>
+		<jointpos name="joint2-position" joint="joint2"/>
+
+		<jointvel name="joint1-velocity" joint="joint1"/>
+		<jointvel name="joint2-velocity" joint="joint2"/>
 
 	</sensor>
+
 	<keyframe>
 	<key name="home" qpos="2.6179938 -1.34639"/><!-- theta1, theta2-->
 	</keyframe>
