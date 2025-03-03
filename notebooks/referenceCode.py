@@ -9,7 +9,7 @@ import time
 def sgn(x):
     return np.piecewise(x, [x < 0, x >= 0], [-1, 1])
 
-xml_path = "Furuta_Model.xml"
+xml_path = "Refeerence_xml.xml"
 dirname = os.path.dirname(__file__)
 abs_path = os.path.join(dirname, xml_path)
 
