@@ -1,57 +1,26 @@
 # ME 467 Project 1
 
-Caleb Hottes
+**Caleb Hottes, Charles Friley**
 
-Charles Friley
+## Introduction
 
+This project is focused on the simulation and analysis of a Furuta Pendulum using the mujoco and spatial math python libraries. It outlines the math needed to solve the analysis questions posed in the instructions document and uses the mujoco library to verify the analytical results and perform a simulation of an unrelated actuation.  The methods and results are outlined in detail in this document, however the actual implementation of these calculations and obviously simulations was done in the attacked jupyter notebook files. 
 
-
-
-
-OUTLINE
-1. Introduction
-	Overview of the Furuta pendulum
-	Importance of kinematics in robotics
-	Goals of the project
-	Tools used (MuJoCo, mathematical methods)
-2. Position-Level Kinematics (Question 1)
-	Introduction
-	Methodology
-	Results
-	Discussion
-3. Velocity-Level Kinematics (Question 2)
-	Introduction
-	Methodology
-	Results
-	Discussion
-4. Verification in MuJoCo (Question 3)
-	Introduction
-	Implementation details
-	Validation of results
-	Discussion
-5. Simulation and Analysis (Question 4)
-	Introduction
-	Simulation setup (Runge-Kutta integration, applied torque)
-	Results (height of end-effector, linear & angular velocity plots)
-	System behavior analysis
-6. Conclusion
-	Summary of key findings
-	Alignment with theoretical expectations
-	Lessons learned and future improvements
- 
 ## Position-Level Kinematics (Question 1)
 
 ### Introduction
 
-In this section we will resolve the position-level forward and inverse kinematics of the Furuta pendulum with the help of the coordinate systems as shown in the figure. 
+In this section we will resolve the position-level forward and inverse kinematics of the Furuta pendulum with the help of the coordinate systems as shown in the figure.
 
-Parts a, b, and c of question 1 will be shown simultaneously and parts d and e will be shown seperatly after. 
+![given figure](assets/given_figure.jpg)
+
+Parts a, b, and c of question 1 will be shown simultaneously and parts d and e will be shown separately after. 
 
 ### Methodology and Results
 
 #### Parts A, B, and C
 
-To start, we will first find the the position level kinematics of frame c and frame 2 in respect to frame 0 (${}^0T_c$ and  ${}^0T_2$). To do this we first construct all the rotation and position matrixes from frame 0 to frame c by inspection. 
+To start, we will first determine the position level kinematics of frame c and frame 2 in respect to frame 0 (${}^0T_c$ and  ${}^0T_2$). To do this we first construct all the rotation and position matrixes from frame 0 to frame c by inspection. 
 
 The positions can be constructed by inspection. 
 
@@ -113,11 +82,11 @@ $$\ 0.3117 < -0.3909,  0.6771, -0.5400 > $$
 The quaternion representing $^{0}R_{2}$ is: 
 $$  0.6022 <  0.2024,  0.7552, -0.1614 > $$
 
-The axis angle representing $^{0}R_{c}$ is:
+The axis angle representation of $^{0}R_{c}$ is:
 
 $$ Angle: 2.508 \ rad \\ Axis: \left[\begin{matrix}-0.411 & 0.713 &  -0.568\end{matrix}\right]$$
 
-The axis angle representing $^{0}R_{2}$ is:
+The axis angle representation of $^{0}R_{2}$ is:
 $$ Angle: 1.849 \ rad \\ Axis: \left[\begin{matrix}0.253 & 0.946 & -0.202\end{matrix}\right]
 $$
 
@@ -139,7 +108,7 @@ $$ ^{0}R_{c} = \left[\begin{matrix}-0.5 & -0.193 & 0.844\\-0.866 & 0.111 & -0.48
 $$ ^{0}R_{2} = \left[\begin{matrix}-0.193 & 0.5 & 0.844\\0.111 & 0.866 & -0.487\\-0.975 & 0.0 & -0.223\end{matrix}\right] $$
 
 #### Part D
-If camera is installed at the end-effector of the Furuta pendulum, what is the value of $ \theta_1 $ and $ \theta_2 $ if the $ z $-axis of the camera points in the direction $ k $, where
+If camera is installed at the end-effector of the Furuta pendulum, what are the values of $ \theta_1 $ and $ \theta_2 $ if the $ z $-axis of the camera points in the direction $ k $, where
 
 $$
 k = -\frac{1}{2} x_0 + \frac{1}{2} y_0 - \frac{\sqrt{2}}{2} z_0.
@@ -188,7 +157,7 @@ Two solutions should be expected, since the end effector can reach the same z-ax
 
 #### Part E
 
-In this question we are asked to find the value of $ \theta_1 $ and $ \theta_2 $ if the position of the camera is located at $p = 1.075x_0 + 0.303y_0 + 1.022z_0$ in respect to the world frame. Solving this is similar to the solution path layed out in part d. First, we will find the inverse kinematic equations for position, then plug in our position to solve.
+In this question we are asked to find the value of $ \theta_1 $ and $ \theta_2 $ if the position of the camera is located at $p = 1.075x_0 + 0.303y_0 + 1.022z_0$ with respect to the world frame. Solving this is similar to the solution path layed out in part d. First, we will find the inverse kinematic equations for position, then plug in our position to solve.
 
 The desired position is given by:
 
@@ -247,7 +216,7 @@ $$
 \end{align*}
 $$
 
-Two solutions should be expected, since the end effector can reach the same position from two separate orientations. 
+Two solutions should be expected, since the end effector can reach the same position from two separate orientations. It is interesting to note that the two incorrect solutions was almost correct each had one angle correct and the other was the complement of the correct angle. 
 
 
 ## Velocity-Level Kinematics (Question 2)
@@ -264,7 +233,7 @@ We started as recommended by resolving the forward and inverse kinematics.
 ---
 
 #### Forward Velocity Kinematics
-The first step was to compute the spatial twist. In order to find the spatial twist we need to know the angular velocity $\mathsf{\omega}$ and the velocity *v* of the end-effector with respect to the world frame. We will fist consider the spatial case. 
+The first step was to compute the spatial twist. In order to find the spatial twist we need to know the angular velocity $\mathsf{\omega}$ and the velocity *v* of the end-effector with respect to the world frame. We will fist consider the spatial case.
 
 ##### Spatial Case
 The spatial twist of frame c with respect to the world frame is given by ${}^0\hat{V}_c^0=\dot{T}T^{-1}$ From question 1 we have ${}^0T_c^0$ and can invert it, so all we need to find is $\dot{T}$.
@@ -275,10 +244,13 @@ From the definition we know that ${}^0\dot{R}_c={}^0\hat{\omega}_c^0 * {}^0R_c$.
 
 $${}^0\omega_c^0={}^0\omega_1^0 + {}^0R_1{}^1\omega_2^1 + {}^0R_1{}^1R_2{}^2\omega_c^2$$
 
-By inspection of the problem's diagram we see that ${}^0\omega_1^0$ and ${}^1\omega_2^1$ are both easily determined beucase they lie along a single axis all the time. Furthermore ${}^2\omega_c^2$  is even easier becuase it is just **0**.
+By inspection of the problem's diagram we see that ${}^0\omega_1^0$ and ${}^1\omega_2^1$ are both easily determined because they lie along a single axis all the time. Furthermore ${}^2\omega_c^2$  is even easier becuase it is just **0**.
 $${}^0\omega_1^0=\begin{bmatrix}0 & 0 & \dot\theta_1\end{bmatrix}^{T}$$ 
 $${}^1\omega_2^1=\begin{bmatrix}0 & 0 & \dot\theta_2\end{bmatrix}^{T}$$
 $${}^2\omega_c^2=\begin{bmatrix}0 & 0 & 0 \end{bmatrix}^{T}$$
+
+
+![given figure](assets/given_figure.jpg)
 
 Because we know the rotation matrices from question 1, we could now work backwards and produce an expression for $\dot{R}$ in terms of $\theta_1$ and $\theta_2$. 
 Now we turn our attention to finding $\dot{t_c^0}$. 
@@ -300,7 +272,7 @@ $${}^0\hat{V}_c^0=\left[\begin{matrix}\dot{\theta_2} d_{1} \cos{\left(\theta_{1}
 
 Now the goal is to do the same calculation but in the body frame. 
 
-For the body twist ${}^c\hat{V}_c^0=T^{-1}\dot{T}$ Where  $\dot{T} = \begin{bmatrix}\dot{R} & \dot{t} \\\bold{0} & 0\end{bmatrix}$.  We can find $\dot{R}$ in much the same way however we will need to use body angular velocities and the formula ${}^0\dot{R}_c={}^0R_c {}^c\hat{\omega}_c^0$
+For the body twist ${}^c\hat{V}_c^0=T^{-1}\dot{T}$ Where  $\dot{T} = \begin{bmatrix}\dot{R} & \dot{t} \\\bold{0} & 0\end{bmatrix}$.  We can find $\dot{R}$ in much the same way, however we will need to use body angular velocities and the formula ${}^0\dot{R}_c={}^0R_c {}^c\hat{\omega}_c^0$
 $${}^c\omega_c^0={}^c\omega_1^0 + {}^c\omega_2^1 + {}^c\omega_c^2$$
 $${}^c\omega_c^0=({}^0R_c)^{T} * {}^0\omega_1^0 + ({}^2R_c)^{T} * ({}^1R_2)^{T} * {}^1\omega_2^1 + ({}^2R_c)^{T} * {}^2\omega_c^2$$
 
@@ -315,7 +287,7 @@ This matches what we found earlier, which is a good sign.
 
 #### Inverse Velocity Kinematics
 
-In this section, we will be solving for $\dot{\theta}_1$ and $\dot{\theta}_2$, the joint velocities of the Furuta pendulum, given a desired end-effector twist. We will solve for the spatial and body. 
+In this section, we will be solving for $\dot{\theta}_1$ and $\dot{\theta}_2$, the joint velocities of the Furuta pendulum, given a desired end-effector twist. We will solve for the spatial and body twists. 
 
 ##### Spatial Case
 
@@ -347,7 +319,7 @@ $$
 \end{cases}
 $$
 
-In summary, $\dot{\theta}_1$  is directly determined by the  $z$ -angular component of the spatial twist, whereas  $\dot{\theta}_2$  has multiple possible expressions depending on different parts of the spatial twist.
+So $\dot{\theta}_1$  is directly determined by the  $z$ -angular component of the spatial twist, whereas  $\dot{\theta}_2$  has multiple possible expressions depending on different parts of the spatial twist.
 
 ##### Body Case
  
@@ -399,7 +371,7 @@ $$
 \end{cases}
 $$
 
-In summary, $ \dot{\theta}_2 $ is directly determined by the body twist’s $ x $-angular component, whereas $ \dot{\theta}_1 $ has multiple possible expressions.
+So $ \dot{\theta}_2 $ is directly determined by the body twist’s $ x $-angular component, whereas $ \dot{\theta}_1 $ has multiple possible expressions.
 
 
 ---
@@ -570,4 +542,80 @@ $$ ^{0}T_{2} = \left[\begin{matrix}-0.193 & 0.5 & 0.844 & 0.4\\0.111 & 0.866 & -
 Which is exactly the same as our calculated result.
 
 *It should be noted that these numbers are rounded, and there are minor descrepencies that are neglegable and explainable through floating point calculations in the simulation.*
+
+
+
+
+
+
+
+
+## Question 4
+
+Question 4 is a bit different from the rest of the questions as it mostly involves coding. In question 4 the pendulum starts at the home position and is driven by an actuator at frame one which applies a torque given by: 
+$$\tau = -15 \operatorname{sgn} \dot{\theta}_2$$
+
+The code sets up the model and then steps through the simulation at a rate of 2ms per step using a RK4 integrator. The simulation loop is shown below:
+
+```python
+# Start the simulation loop
+time_simulated = 0
+time_to_simulate = 15#s
+show_in_real_time = False
+with mujoco.viewer.launch_passive(model, data) as viewer:
+    steps = 0
+    while viewer.is_running():
+        # Set current control input
+        data.ctrl[actuator_id] = -15 * np.sign(data.qvel[1].copy())
+
+        # Step simulation
+        mujoco.mj_step(model, data)
+
+        if show_in_real_time:
+            #Update viewer
+            viewer.sync()
+            #Sleep so you can watch the simulation in real time.
+            time.sleep(0.002)
+        time_simulated += .002
+        steps += 1
+        #Now we are ready to record data for this step.
+        heights.append(data.xpos[end_effector_body_id][2])
+        times.append(time_simulated)
+        body_lin_vels_endeffector.append(data.sensordata[:3].copy())
+        R0c = data.xmat[frame1_body_id].reshape(3,3)
+        spatial_ang_vels_endeffector.append(np.array(R0c) @ np.array(data.sensordata[3:6].copy()))
+        spatial_ang_vels_frame_1.append(np.array(R0c) @ np.array(data.sensordata[6:9].copy()))
+
+        # Stop the simulation after is has simulated the desired time.
+        if time_simulated > time_to_simulate:
+            break
+
+print("Done Simulating")
+```
+
+Then the code proceeds to plot the data as requested, the plots are shown below:
+
+
+### Heights graph
+![heights image](assets/heights.png)
+
+From this graph we see that the heights gradually increased, and stayed between 0.4m and 2m. This is because the end-effector can only be in that height range due to the geometry of the pendulum. 
+
+
+![heights image](assets/bodylinearvelocity.png)
+
+The second graph shows that for the first 6 seconds the magnitude of the velocity oscillates between an ever increasing value and 2. This is the result of the pendulum swinging back and forth to greater and greater heights. Then after 6 seconds it is able to complete a full rotation and the velocity no longer stops at zero. As the pendulum continues to swing it goes faster and faster which explains why the oscillations get smaller and smaller. Finally I conjecture that the linear rate of the increase of the velocity peaks is due to a sort of constant rate of energy transfer into the system. 
+
+![heights image](assets/spatialEndvsFrame1.png)
+
+The last graph is also rather interesting. It graphs the end effector angular velocity versus the angular velocity of frame 1. The straight line in the magnitude graph indicates that the velocities of the two joints are proportional. This makes sense because the end-effector is has less inertia than the other links so it is reasonable for its angular velocity to be relatively faster. The vertical lines on the X and Y direction are a result of the fact that joint 1 can only rotate about the Z axis, which necessitates that its angular velocity be 0 in the X and Y directions. 
+
+
+---
+### Images
+Here is an image of the simulation
+
+
+![heights image](assets/simulation.jpg)
+
 
