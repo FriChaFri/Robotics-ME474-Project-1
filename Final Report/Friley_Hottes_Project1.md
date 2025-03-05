@@ -55,35 +55,35 @@ To start, we will first find the the position level kinematics of frame c and fr
 
 The positions can be constructed by inspection. 
 
-${}^0t_1 = \left[\begin{matrix}0\\0\\d_{1}\end{matrix}\right]$, ${}^1t_2 = \left[\begin{matrix}0\\0\\d_{2}\end{matrix}\right]$, ${}^2t_c = \left[\begin{matrix}0\\0\\d_{3}\end{matrix}\right]$
+$${}^0t_1 = \left[\begin{matrix}0\\0\\d_{1}\end{matrix}\right], {}^1t_2 = \left[\begin{matrix}0\\0\\d_{2}\end{matrix}\right], {}^2t_c = \left[\begin{matrix}0\\0\\d_{3}\end{matrix}\right]$$
 
 The rotations are simple to construct.
 
 From 0 to 1, we first rotate about $x$ by $\pi/2$, then we rotate about $y$ by $\theta_{1}$.
 
-$R_{x, \pi/2} R_{y, \theta_{1}} = {}^0R_1 = \left[\begin{matrix}\cos{\left(\theta_{1} \right)} & 0 & \sin{\left(\theta_{1} \right)}\\\sin{\left(\theta_{1} \right)} & 0 & - \cos{\left(\theta_{1} \right)}\\0 & 1 & 0\end{matrix}\right]$
+$$R_{x, \pi/2} R_{y, \theta_{1}} = {}^0R_1 = \left[\begin{matrix}\cos{\left(\theta_{1} \right)} & 0 & \sin{\left(\theta_{1} \right)}\\\sin{\left(\theta_{1} \right)} & 0 & - \cos{\left(\theta_{1} \right)}\\0 & 1 & 0\end{matrix}\right]$$
 
 From 1 to 2, we first rotate about $x$ by $\pi/2$, then we rotate about $y$ by $\theta_{2}$.
 
-$R_{x, \pi/2} R_{y, \theta_{2}} = {}^1R_2 = \left[\begin{matrix}\cos{\left(\theta_{2} \right)} & 0 & \sin{\left(\theta_{2} \right)}\\\sin{\left(\theta_{2} \right)} & 0 & - \cos{\left(\theta_{2} \right)}\\0 & 1 & 0\end{matrix}\right]$
+$$R_{x, \pi/2} R_{y, \theta_{2}} = {}^1R_2 = \left[\begin{matrix}\cos{\left(\theta_{2} \right)} & 0 & \sin{\left(\theta_{2} \right)}\\\sin{\left(\theta_{2} \right)} & 0 & - \cos{\left(\theta_{2} \right)}\\0 & 1 & 0\end{matrix}\right]$$
 
 From 2 to c, we just rotate about $z$ by $-\pi/2$.
 
-$R_{z, -\pi/2} = {}^2R_c = \left[\begin{matrix}0 & 1 & 0\\-1 & 0 & 0\\0 & 0 & 1\end{matrix}\right]$
+$$R_{z, -\pi/2} = {}^2R_c = \left[\begin{matrix}0 & 1 & 0\\-1 & 0 & 0\\0 & 0 & 1\end{matrix}\right]$$
 
 From these, the homogenous representation of the pose can be constructed.
 
-$ {}^0T_1 = \left[\begin{matrix}\cos{\left(\theta_{1} \right)} & 0 & \sin{\left(\theta_{1} \right)} & 0\\\sin{\left(\theta_{1} \right)} & 0 & - \cos{\left(\theta_{1} \right)} & 0\\0 & 1 & 0 & d_{1}\\0 & 0 & 0 & 1\end{matrix}\right]$
+$$ {}^0T_1 = \left[\begin{matrix}\cos{\left(\theta_{1} \right)} & 0 & \sin{\left(\theta_{1} \right)} & 0\\\sin{\left(\theta_{1} \right)} & 0 & - \cos{\left(\theta_{1} \right)} & 0\\0 & 1 & 0 & d_{1}\\0 & 0 & 0 & 1\end{matrix}\right]$$
 
-$ {}^1T_2 = \left[\begin{matrix}\cos{\left(\theta_{2} \right)} & 0 & \sin{\left(\theta_{2} \right)} & 0\\\sin{\left(\theta_{2} \right)} & 0 & - \cos{\left(\theta_{2} \right)} & 0\\0 & 1 & 0 & d_{2}\\0 & 0 & 0 & 1\end{matrix}\right]$
+$$ {}^1T_2 = \left[\begin{matrix}\cos{\left(\theta_{2} \right)} & 0 & \sin{\left(\theta_{2} \right)} & 0\\\sin{\left(\theta_{2} \right)} & 0 & - \cos{\left(\theta_{2} \right)} & 0\\0 & 1 & 0 & d_{2}\\0 & 0 & 0 & 1\end{matrix}\right]$$
 
-$ {}^2T_c = \left[\begin{matrix}0 & 1 & 0 & 0\\-1 & 0 & 0 & 0\\0 & 0 & 1 & d_{3}\\0 & 0 & 0 & 1\end{matrix}\right]$
+$$ {}^2T_c = \left[\begin{matrix}0 & 1 & 0 & 0\\-1 & 0 & 0 & 0\\0 & 0 & 1 & d_{3}\\0 & 0 & 0 & 1\end{matrix}\right]$$
 
 With these poses the desired pose can be constructed.
 
-$^{0}T_{c} = {}^{0}T_{1} \, {}^{1}T_{2} \, {}^{2}T_{c}$
+$$^{0}T_{c} = {}^{0}T_{1} \, {}^{1}T_{2} \, {}^{2}T_{c}$$
 
-$^{0}T_{2} = {}^{0}T_{1} \, {}^{1}T_{2} $
+$$^{0}T_{2} = {}^{0}T_{1} \, {}^{1}T_{2} $$
 
 
 Which results in:
@@ -254,10 +254,10 @@ Two solutions should be expected, since the end effector can reach the same posi
 
 
 ### Introduction
-Question two moves from the position level kinematics domain and asks us questions about the velocity of the pendulum. 
 
+In this section we will be solving the forward and inverse velocity level kinematics of the Furuta Pendulum.  
 
-### Methodology
+### Methodology and Results
 
 We started as recommended by resolving the forward and inverse kinematics.  
 
@@ -539,3 +539,35 @@ $$
 
 #### Conclusion
 The spatial and body angular rates are the same, which is expected and serves to justify the answer. 
+
+
+## Simulation Verification of Kinematic Equations (Question 3)
+
+### Introduction
+
+In this section we will be showing that the forward and inverse kinematic equations derived in question 1 and 2 are correct by simulating the pendulum in MuJoCo and extracting from the end effector frame and frame 2. 
+
+Our MuJoCo model looks like this:
+
+![](assets/Q3MuJoCo.png)
+
+### Methodology and Results
+
+#### Verifying Question 1
+
+In question 1, we found these pose matrixes with the given angles $\theta_1 = \pi/3$ and $\theta_2=-3\pi/7$:
+
+$$ ^{0}T_{c} = \left[\begin{matrix}-0.5 & -0.193 & 0.844 & 1.075\\-0.866 & 0.111 & -0.487 & 0.303\\0.0 & -0.975 & -0.223 & 1.022\\0.0 & 0.0 & 0.0 & 1.0\end{matrix}\right] $$
+
+$$ ^{0}T_{2} = \left[\begin{matrix}-0.193 & 0.5 & 0.844 & 0.4\\0.111 & 0.866 & -0.487 & 0.693\\-0.975 & 0.0 & -0.223 & 1.2\\0.0 & 0.0 & 0.0 & 1.0\end{matrix}\right] $$
+
+To verify that these are correct, we will plug in these $\theta$ values and see if we get the same pose back. Our simulated results are:
+
+$$ ^{0}T_{c} = \left[\begin{matrix}-0.5 & -0.193 & 0.844 & 1.075\\-0.866 & 0.111 & -0.487 & 0.303\\0.0 & -0.975 & -0.223 & 1.022\\0.0 & 0.0 & 0.0 & 1.0\end{matrix}\right] $$
+
+$$ ^{0}T_{2} = \left[\begin{matrix}-0.193 & 0.5 & 0.844 & 0.4\\0.111 & 0.866 & -0.487 & 0.693\\-0.975 & 0.0 & -0.223 & 1.2\\0.0 & 0.0 & 0.0 & 1.0\end{matrix}\right] $$
+
+Which is exactly the same as our calculated result.
+
+*It should be noted that these numbers are rounded, and there are minor descrepencies that are neglegable and explainable through floating point calculations in the simulation.*
+
