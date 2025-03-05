@@ -43,3 +43,27 @@ print("Done Simulating")
 
 Then the code proceeds to plot the data as requested, the plots are shown below:
 
+
+### Heights graph
+![heights image](assets/heights.png)
+
+From this graph we see that the heights gradually increased, and stayed between 0.4m and 2m. This is because the end-effector can only be in that height range due to the geometry of the pendulum. 
+
+
+![heights image](assets/bodylinearvelocity.png)
+
+The second graph shows that for the first 6 seconds the magnitude of the velocity oscillates between an ever increasing value and 2. This is the result of the pendulum swinging back and forth to greater and greater heights. Then after 6 seconds it is able to complete a full rotation and the velocity no longer stops at zero. As the pendulum continues to swing it goes faster and faster which explains why the oscillations get smaller and smaller. Finally I conjecture that the linear rate of the increase of the velocity peaks is due to a sort of constant rate of energy transfer into the system. 
+
+![heights image](assets/spatialEndvsFrame1.png)
+
+The last graph is also rather interesting. It graphs the end effector angular velocity versus the angular velocity of frame 1. The straight line in the magnitude graph indicates that the velocities of the two joints are proportional. This makes sense because the end-effector is has less inertia than the other links so it is reasonable for its angular velocity to be relatively faster. The vertical lines on the X and Y direction are a result of the fact that joint 1 can only rotate about the Z axis, which necessitates that its angular velocity be 0 in the X and Y directions. 
+
+
+---
+### Images
+Here is an image of the simulation
+
+
+![heights image](assets/simulation.jpg)
+
+
