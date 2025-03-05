@@ -541,7 +541,7 @@ $$ ^{0}T_{2} = \left[\begin{matrix}-0.193 & 0.5 & 0.844 & 0.4\\0.111 & 0.866 & -
 
 Which is exactly the same as our calculated result.
 
-*It should be noted that these numbers are rounded, and there are minor discrepancies that are negligible and explainable through floating point calculations in the simulation.*
+*It should be noted that these numbers are rounded, and there are minor discrepancies that are negligible and explainable through numerical computation methods in the simulation.*
 
 This verifies question 1 parts a, b, and c since the axis-angle and quaternion representations of the orientation are obviously be the same because the orientations are the same. 
 
@@ -688,11 +688,11 @@ $$ {}^0V_c^0 = \left[\begin{matrix}-2.078\\1.2\\0.0\\1.0\\1.732\\1.0\end{matrix}
 ,
 {}^2V_2^0 = \left[\begin{matrix}0.178\\0.0\\-0.78\\-0.975\\2.0\\-0.223\end{matrix}\right]
 $$
-It should be noted that the spatial twist found in both frames was derived by doing an ad-joint transformation on the body twist. 
+It should be noted that the spatial twist found in both frames was derived by doing an ad-joint transformation on the body twist found via mujoco simulation. 
 
 ${}^AV_B = \text{Ad}_{^{A}T_B} {}^BV_B$
 
-As can be seen, the calculated and simulated twist matrixes are the same, verifying our calculations. There is a slight difference in the x component of the linear velocities in the spatial of 0.001, however this difference can be attributed to rounding and floating point calculation error. 
+As can be seen, the calculated and simulated twist matrixes are the same, verifying our calculations. There is a slight difference in the x component of the linear velocities in the spatial of 0.001, however this difference can be attributed to the RK4 integrator. 
 
 #### Verifying Question 2 Part C and D
 We were given the following twists and asked to find the joint rates. 
@@ -708,7 +708,7 @@ $$
 \begin{bmatrix} -1.247 & 0.72 & 0 & 0.6 & 1.039 & -0.5 \end{bmatrix}^{\top}
 $$
 
-The joint rates we found for each twist ended up being the same:
+The joint rates we found for each twist were the same:
 $$
 \dot{\theta}_1 = -0.5 \text{ rad/s}, \quad \dot{\theta}_2 = 1.2 \text{ rad/s}
 $$
