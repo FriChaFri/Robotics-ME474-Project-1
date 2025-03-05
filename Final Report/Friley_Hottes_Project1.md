@@ -525,7 +525,7 @@ Our MuJoCo model looks like this:
 
 ### Methodology and Results
 
-#### Verifying Question 1
+#### Verifying Question 1 Parts A, B, and C
 
 In question 1, we found these pose matrixes with the given angles $\theta_1 = \pi/3$ and $\theta_2=-3\pi/7$:
 
@@ -541,16 +541,191 @@ $$ ^{0}T_{2} = \left[\begin{matrix}-0.193 & 0.5 & 0.844 & 0.4\\0.111 & 0.866 & -
 
 Which is exactly the same as our calculated result.
 
-*It should be noted that these numbers are rounded, and there are minor descrepencies that are neglegable and explainable through floating point calculations in the simulation.*
+*It should be noted that these numbers are rounded, and there are minor discrepancies that are negligible and explainable through floating point calculations in the simulation.*
+
+This verifies question 1 parts a, b, and c since the axis-angle and quaternion representations of the orientation are obviously be the same because the orientations are the same. 
+
+#### Verifying Question 1 Part D
+
+In part d, we found 2 sets of solutions that result in the desired orientation of the z-axis of frame c.
+
+Desired orientation of the z-axis:
+$$
+k = -\frac{1}{2} x_0 + \frac{1}{2} y_0 - \frac{\sqrt{2}}{2} z_0.
+$$ 
+
+Solution 1:
+$$
+(\theta_1, \theta_2) = (-0.7854, 5.4978)
+$$
+
+Resulted in this pose:
+$$
+\begin{bmatrix}
+0.7071 & 0.5 & -0.5 & -0.9657 \\
+0.7071 & -0.5 & 0.5 & -0.1657 \\
+0 & -0.7071 & -0.7071 & 0.6343 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+$$
+
+Solution 2:
+$$
+(\theta_1, \theta_2) = (2.356, 0.7854)
+$$
+
+Resulted in this pose:
+$$
+\begin{bmatrix}
+-0.7071 & -0.5 & -0.5 & 0.1657 \\
+-0.7071 & 0.5 & 0.5 & 0.9657 \\
+0 & 0.7071 & -0.7071 & 0.6343 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+$$
+
+If we plug these new $\theta$ values into the simulation, we should see the same pose matrixes come out of it. 
+
+Plugging $\theta_1$ and $\theta_2$ in result in:
+
+Pose 1, corresponding to solution 1:
+
+$$ \left[\begin{matrix}0.7071 & 0.5 & -0.5 & -0.9657\\0.7071 & -0.5 & 0.5 & -0.1657\\0.0 & -0.7071 & -0.7071 & 0.6343\\0.0 & 0.0 & 0.0 & 1.0\end{matrix}\right] $$
+
+Pose 2, corresponding to solution 2:
+
+$$ \left[\begin{matrix}-0.7071 & -0.5 & -0.5 & 0.1657\\-0.7071 & 0.5 & 0.5 & 0.9657\\0.0 & 0.7071 & -0.7071 & 0.6343\\0.0 & 0.0 & 0.0 & 1.0\end{matrix}\right] $$
+
+As can be seen, the calculated and simulated pose matrixes are the same, verifying our calculations.
+
+
+#### Verifying Question 1 Part E
+
+In part e, we found 2 sets of solutions that result in the desired position of frame c.
+
+Desired position of frame c:
+$$
+p = 1.075x_0 + 0.303y_0 + 1.022z_0.
+$$
+
+Solution 1:
+$$
+(\theta_1, \theta_2) = (1.0727, 1.3464)
+$$
+
+Resulted in this pose:
+$$
+\begin{bmatrix}
+-0.8785 & 0.1063 & 0.4658 & 1.0754 \\
+0.4777 & 0.1955 & 0.8565 & 0.303 \\
+0 & 0.9749 & -0.2225 & 1.022 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+$$
+
+Solution 2:
+$$
+(\theta_1, \theta_2) = (2.6181, 4.9368)
+$$
+
+Resulted in this pose:
+$$
+\begin{bmatrix}
+-0.4999 & -0.1927 & 0.8444 & 1.0754 \\
+-0.8661 & 0.1112 & -0.4873 & 0.303 \\
+0 & -0.9749 & -0.2225 & 1.022 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+$$
+
+
+Pose 1, corresponding to solution 1:
+
+$$ \left[\begin{matrix}-0.8785 & 0.1063 & 0.4658 & 1.0754\\0.4777 & 0.1955 & 0.8565 & 0.303\\0.0 & 0.9749 & -0.2225 & 1.022\\0.0 & 0.0 & 0.0 & 1.0\end{matrix}\right] $$
+
+Pose 2, corresponding to solution 2:
+
+$$ \left[\begin{matrix}-0.4999 & -0.1927 & 0.8444 & 1.0754\\-0.8661 & 0.1112 & -0.4873 & 0.303\\0.0 & -0.9749 & -0.2225 & 1.022\\0.0 & 0.0 & 0.0 & 1.0\end{matrix}\right] $$
+
+As can be seen, the calculated and simulated pose matrixes are the same, verifying our calculations.
+
+#### Verifying Question 2 Part A and B
+
+We were given some joint angles and velocities and asked to produce body and spacial twists for frame c and frame 2.
+
+The joint angles $\theta$ were given by 
+
+$$
+\theta = \begin{bmatrix} \theta_1 \\ \theta_2 \end{bmatrix} = \begin{bmatrix} 5\pi/6 \\ -3\pi/7 \end{bmatrix}
+$$
+
+The angular rates of change were also given:
+
+$$
+\dot{{\theta}} = \begin{bmatrix} 1 & 2 \end{bmatrix}^{\top}
+$$ 
+
+The resulting twists were calculated:
+
+$$
+{}^0V_c^0 = \left[\begin{matrix}v\\\omega\end{matrix}\right] = \left[\begin{matrix}-2.079\\1.2\\0\\1.0\\1.732\\1.0\end{matrix}\right]
+,
+{}^cV_c^0 = \left[\begin{matrix}v\\\omega\end{matrix}\right] = \left[\begin{matrix}-0.780\\1.778\\-0.78\\-2.0\\-0.975\\-0.223\end{matrix}\right]
+,\\ \ \\
+{}^0V_2^0 = \left[\begin{matrix}v\\\omega\end{matrix}\right] = \left[\begin{matrix}-2.079\\1.2\\0\\1.0\\1.732\\1.0\end{matrix}\right]
+,
+{}^2V_2^0 = \left[\begin{matrix}v\\\omega\end{matrix}\right] = \left[\begin{matrix}0.178\\0\\-0.780\\-0.975\\2.0\\-0.223\end{matrix}\right]
+$$
+
+We can verify this in MuJoCo by plugging in the joint angles and velocities and seeing if the resulting simulated twist matches with our calculated twist.
+
+Plugging these values in we get:
+
+$$ {}^0V_c^0 = \left[\begin{matrix}-2.078\\1.2\\0.0\\1.0\\1.732\\1.0\end{matrix}\right], \
+{}^cV_c^0 = \left[\begin{matrix}-0.78\\1.778\\-0.78\\-2.0\\-0.975\\-0.223\end{matrix}\right] 
+\\ \ \\
+{}^0V_2^0 = \left[\begin{matrix}-2.078\\1.2\\0.0\\1.0\\1.732\\1.0\end{matrix}\right]
+,
+{}^2V_2^0 = \left[\begin{matrix}0.178\\0.0\\-0.78\\-0.975\\2.0\\-0.223\end{matrix}\right]
+$$
+It should be noted that the spatial twist found in both frames was derived by doing an ad-joint transformation on the body twist. 
+
+${}^AV_B = \text{Ad}_{^{A}T_B} {}^BV_B$
+
+As can be seen, the calculated and simulated twist matrixes are the same, verifying our calculations. There is a slight difference in the x component of the linear velocities in the spatial of 0.001, however this difference can be attributed to rounding and floating point calculation error. 
+
+#### Verifying Question 2 Part C and D
+We were given the following twists and asked to find the joint rates. 
+
+Given body twist:
+$$
+{}^cV_c^0 = (\mathbf{v}_c, \boldsymbol{\omega}_c) = 
+\begin{bmatrix} 0.39 & 0.871 & 0.39 & -1.2 & 0.487 & 0.111 \end{bmatrix}^{\top}
+$$
+Given spatial twist:
+$$
+{}^0V_c^0 = (\mathbf{v}_c, \boldsymbol{\omega}_c) = 
+\begin{bmatrix} -1.247 & 0.72 & 0 & 0.6 & 1.039 & -0.5 \end{bmatrix}^{\top}
+$$
+
+The joint rates we found for each twist ended up being the same:
+$$
+\dot{\theta}_1 = -0.5 \text{ rad/s}, \quad \dot{\theta}_2 = 1.2 \text{ rad/s}
+$$
+
+We can verify this in MuJoCo by plugging in the joint rates we found and seeing if the resulting simulated twist matches with the given twist.
+
+Plugging in these joint rates into the simulation:
+
+$${}^cV_c^0 = \left[\begin{matrix}0.39\\0.871\\0.39\\-1.2\\0.487\\0.111\end{matrix}\right]$$
+
+$${}^0V_c^0 = \left[\begin{matrix}-1.247\\0.72\\0.0\\0.6\\1.039\\-0.5\end{matrix}\right]$$
+
+As can be seen, the calculated and simulated twist matrixes are the same, verifying our calculations.
 
 
 
-
-
-
-
-
-## Question 4
+## Simulation of Sgn Function Actuation (Question 4)
 
 Question 4 is a bit different from the rest of the questions as it mostly involves coding. In question 4 the pendulum starts at the home position and is driven by an actuator at frame one which applies a torque given by: 
 $$\tau = -15 \operatorname{sgn} \dot{\theta}_2$$
