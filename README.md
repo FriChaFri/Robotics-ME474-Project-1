@@ -9,6 +9,7 @@ Packages:
 
     pip install numpy, matplotlib, jupyter, mujoco, spatialmath-python, control, sympy, scipy, time, os
 
+To run the MuJoCo file, run `python -m mujoco.viewer` and then drag and drop the "FurturaPendulum.xml" file inside the viewer. The position that is loaded automatically is the zero position. Keyframe 0 loads the Home position at $\theta_1 = \pi/2$ and $\theta_2=0$. Keyframe 1 loads the position outlined in part a of question 1, $\theta_1 = \pi/3$ and $\theta_2=-3\pi/7$.
 
 ## Overview of important files
 
